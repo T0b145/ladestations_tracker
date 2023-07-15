@@ -3,7 +3,6 @@ name: update data
 on:
   schedule:
     - cron: "*/10 * * * *"    #runs at 11:30 UTC everyday
-  workflow_dispatch:
 
 jobs:
   getdataandrefreshmap:
