@@ -6,13 +6,13 @@ import pytz
  # Specify the CSV file path (existing or new)
 csv_file_path = "data.csv"
 
-ids = [
-    "5y35yn",
-    "z228j8",
-    "zn686k",
-    "jqmy9n",
-    "2jqwpp",
-    "gjje3n"
+stationen = [
+    {"name":"Platanenstr. 11", "id":"5y35yn"},
+    {"name":"Lindenstraße 71", "id":"z228j8"},
+    {"name":"Ackerstraße 131", "id":"zn686k"},
+    {"name":"Ackerstraße Schnelllader", "id":"2jqwpp"},
+    {"name":"Hermannstr.22a", "id":"jqmy9n"},
+    {"name":"Birkenstraße 47a ", "id":"gjje3n"}
     ]
 
 def ladestation_request(id):
@@ -38,8 +38,8 @@ def ladestation_request(id):
     return response
 
     
-for id in ids:
-    response = ladestation_request(id)
+for st in stationen:
+    response = ladestation_request(st["id"])
     if response.status_code == 200:
         json_data = response.json()
         
@@ -49,7 +49,7 @@ for id in ids:
         for station in json_data:
             # Open the CSV file in append mode
             with open(csv_file_path, mode="a", newline="") as file:
-                writer = csv.DictWriter(file, fieldnames=["Request Datetime"] + list(station.keys()))
+                writer = csv.DictWriter(file, fieldnames=["Station_name"]+["Station_id"]+["Request Datetime"] + list(station.keys()))
 
                 # Check if the file is empty and write the header row
                 if file.tell() == 0:
@@ -57,6 +57,8 @@ for id in ids:
 
                 # Write the JSON data as a new row in the CSV file
                 station["Request Datetime"] = request_datetime
+                station["Station_name"]=st["name"]
+                station["Station_id"]=st["id"]
                 writer.writerow(station)
     else:
         print (f"{id}: Request failed")
