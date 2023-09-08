@@ -12,7 +12,8 @@ stationen = [
     {"name":"Ackerstraße 131", "id":"zn686k"},
     {"name":"Ackerstraße Schnelllader", "id":"2jqwpp"},
     {"name":"Hermannstr.22a", "id":"jqmy9n"},
-    {"name":"Birkenstraße 47a ", "id":"gjje3n"}
+    {"name":"Birkenstraße 47a ", "id":"gjje3n"},
+    {"name":"Kappenberger Damm", "id":"yrr858"}
     ]
 
 def ladestation_request(id):
